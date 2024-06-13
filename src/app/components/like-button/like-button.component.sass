@@ -1,0 +1,21 @@
+@import '../../styles/_colors.sass'
+
+.like-button
+  display: flex
+  align-items: center
+  gap: 0.2em
+  width: fit-content
+  border-radius: 8px
+  padding: 0.5em
+  background-color: $very-light-gray
+  color: $moderate-blue
+
+  &__up, &__down
+    display: flex
+    background: none
+    border: none
+    cursor: pointer
+    padding: 4px
+
+  &__counter
+    color: $grayish-blue
