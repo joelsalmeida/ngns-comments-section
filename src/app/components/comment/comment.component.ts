@@ -1,8 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { LikeButtonComponent } from '../like-button/like-button.component';
 import { MiniProfileComponent } from '../mini-profile/mini-profile.component';
+
+type TComment = {
+  username: string,
+  likes: number
+}
 
 @Component({
   selector: 'app-comment',
@@ -12,9 +16,5 @@ import { MiniProfileComponent } from '../mini-profile/mini-profile.component';
   styleUrl: './comment.component.sass'
 })
 export class CommentComponent {
-  constructor(private http: HttpClient) {
-    this.http.get('http://localhost:3000/comment/timeline').subscribe((comments) => {
-      console.log(comments)
-    })
-  }
+  @Input() comment: TComment = { username: 'nice-username', likes: 0 };
 }
