@@ -1,0 +1,4 @@
+<section class="comments-section">
+  <app-comment *ngFor="let comment of comments$| async;"
+    [comment]="{username: comment.sender.username, likes: comment.likes.length}"></app-comment>
+</section>
