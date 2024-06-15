@@ -3,9 +3,14 @@
     <app-comment
       [comment]="{username: comment.sender.username, likes: comment.likes.length, body: comment.body}"></app-comment>
 
+    @if (comment.responses.length > 0) {
     <div class="comments-section__replies">
       <app-comment *ngFor="let response of comment.responses;"
         [comment]="{username: response.sender.username,  likes: response.likes.length, body: formatResponseBody(response)}"></app-comment>
     </div>
+    }
+
   </div>
+
+  <app-post-comment></app-post-comment>
 </section>
