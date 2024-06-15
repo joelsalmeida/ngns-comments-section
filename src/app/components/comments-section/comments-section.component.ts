@@ -18,8 +18,8 @@ export class CommentsSectionComponent {
   comments$!: Observable<TComment[]>;
 
   ngOnInit(): void {
-    this.comments$ = this.commentsService.getCommentsTimeline();
-    console.log('Comments:', this.comments$);
+    this.comments$ = this.commentsService.comments;
+    console.log(' CommentsSectionComponent comments:', this.comments$);
   }
 
   // TODO: Move this method to comment component
