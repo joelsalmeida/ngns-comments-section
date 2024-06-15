@@ -6,6 +6,7 @@ import { MiniProfileComponent } from '../mini-profile/mini-profile.component';
 type TComment = {
   username: string,
   likes: number
+  body?: string
 }
 
 @Component({
@@ -16,5 +17,5 @@ type TComment = {
   styleUrl: './comment.component.sass'
 })
 export class CommentComponent {
-  @Input() comment: TComment = { username: 'nice-username', likes: 0 };
+  @Input() comment: TComment = { username: 'nice-username', likes: 0, body: 'nice comment body' };
 }

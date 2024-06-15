@@ -1,4 +1,17 @@
 <app-card>
-  <app-mini-profile [profilePic]="'/avatars/image-amyrobson.webp'" [username]="comment.username"></app-mini-profile>
-  <app-like-button [likes]="comment.likes"></app-like-button>
+  <div class="comment__profile">
+    <app-mini-profile [profilePic]="'/avatars/image-amyrobson.webp'" [username]="comment.username"></app-mini-profile>
+    <span class="comment__past-time">10 minutes ago</span>
+  </div>
+
+  <p class="comment__content">
+    {{ comment.body }}
+  </p>
+
+  <div class="comment__interaction">
+    <app-like-button [likes]="comment.likes"></app-like-button>
+    <span class="comment__interaction__reply">
+      <img src="/icon-reply.svg" alt="">
+      Reply</span>
+  </div>
 </app-card>

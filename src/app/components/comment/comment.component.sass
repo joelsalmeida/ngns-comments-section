@@ -1,1 +1,25 @@
 
+@import '../../styles/_colors.sass'
+@import '../../styles/_fonts.sass'
+
+.comment
+  &__profile
+    display: flex
+    align-items: center
+    gap: 0.5em
+
+  &__content
+    color: $grayish-blue
+
+  &__interaction
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    &__reply
+      color: $moderate-blue
+      cursor: pointer
+      font-weight: $weight-semibold
+      display: flex
+      align-items: center
+      gap: 0.5em
