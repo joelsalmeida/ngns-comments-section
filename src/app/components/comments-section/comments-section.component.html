@@ -1,4 +1,11 @@
 <section class="comments-section">
-  <app-comment *ngFor="let comment of comments$| async;"
-    [comment]="{username: comment.sender.username, likes: comment.likes.length}"></app-comment>
+  <div *ngFor="let comment of comments$| async;">
+    <app-comment
+      [comment]="{username: comment.sender.username, likes: comment.likes.length, body: comment.body}"></app-comment>
+
+    <div class="comments-section__replies">
+      <app-comment *ngFor="let response of comment.responses;"
+        [comment]="{username: response.sender.username,  likes: response.likes.length, body: formatResponseBody(response)}"></app-comment>
+    </div>
+  </div>
 </section>

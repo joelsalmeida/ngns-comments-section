@@ -20,4 +20,9 @@ export class CommentsSectionComponent {
     this.comments$ = this.commentsService.getCommentsTimeline();
     console.log('Comments:', this.comments$);
   }
+
+  // TODO: Move this method to comment component
+  formatResponseBody(response: any): string {
+    return `@${response.recipient.username} ${response.body}`;
+  }
 }
