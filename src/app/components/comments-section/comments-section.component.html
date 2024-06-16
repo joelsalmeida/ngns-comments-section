@@ -6,10 +6,9 @@
     @if (comment.responses.length > 0) {
     <div class="comments-section__replies">
       <app-comment *ngFor="let response of comment.responses;"
-        [comment]="{username: response.sender.username,  likes: response.likes.length, body: formatResponseBody(response)}"></app-comment>
+        [comment]="{username: response.sender.username,  likes: response.likes.length, body: response.body, recipient: response.recipient.username}"></app-comment>
     </div>
     }
-
   </div>
 
   <app-post-comment></app-post-comment>

@@ -21,9 +21,4 @@ export class CommentsSectionComponent {
     this.comments$ = this.commentsService.comments;
     console.log(' CommentsSectionComponent comments:', this.comments$);
   }
-
-  // TODO: Move this method to comment component
-  formatResponseBody(response: any): string {
-    return `@${response.recipient.username} ${response.body}`;
-  }
 }

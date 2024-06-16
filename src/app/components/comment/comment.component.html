@@ -5,6 +5,7 @@
   </div>
 
   <p class="comment__content">
+    <span *ngIf="comment.recipient" class="comment__content__username">{{"@" + comment.recipient}}</span>
     {{ comment.body }}
   </p>
 
