@@ -22,4 +22,8 @@ export class CommentComponent {
   @Input() comment: TComment = {
     username: 'nice-username', likes: 0, body: 'nice comment body'
   }
+
+  getProfilePicPath() {
+    return `/avatars/image-${this.comment.username}.webp`
+  }
 }

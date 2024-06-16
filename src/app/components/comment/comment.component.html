@@ -1,6 +1,6 @@
 <app-card>
   <div class="comment__profile">
-    <app-mini-profile [profilePic]="'/avatars/image-amyrobson.webp'" [username]="comment.username"></app-mini-profile>
+    <app-mini-profile [profilePic]=getProfilePicPath() [username]="comment.username"></app-mini-profile>
     <span class="comment__past-time">10 minutes ago</span>
   </div>
 
