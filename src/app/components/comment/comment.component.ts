@@ -9,6 +9,7 @@ type TComment = {
   recipient?: string,
   likes: number
   body?: string
+  yourComment: boolean
 }
 
 @Component({
@@ -20,7 +21,7 @@ type TComment = {
 })
 export class CommentComponent {
   @Input() comment: TComment = {
-    username: 'nice-username', likes: 0, body: 'nice comment body'
+    username: 'nice-username', likes: 0, body: 'nice comment body', yourComment: false
   }
 
   getProfilePicPath() {

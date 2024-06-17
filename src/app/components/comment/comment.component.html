@@ -1,6 +1,7 @@
 <app-card>
   <div class="comment__profile">
-    <app-mini-profile [profilePic]=getProfilePicPath() [username]="comment.username"></app-mini-profile>
+    <app-mini-profile [profilePic]=getProfilePicPath() [username]="comment.username"
+      [yourComment]="comment.yourComment"></app-mini-profile>
     <span class="comment__past-time">10 minutes ago</span>
   </div>
 
