@@ -1,12 +1,19 @@
 <section class="comments-section">
   <div *ngFor="let comment of comments$| async;">
-    <app-comment
-      [comment]="{username: comment.sender.username, likes: comment.likes.length, body: comment.body}"></app-comment>
+    <app-comment [comment]="{
+      username: comment.sender.username, 
+      likes: comment.likes.length, 
+      body: comment.body,
+      yourComment: comment.sender.username === authenticatedUser.username}"></app-comment>
 
     @if (comment.responses.length > 0) {
     <div class="comments-section__replies">
-      <app-comment *ngFor="let response of comment.responses;"
-        [comment]="{username: response.sender.username,  likes: response.likes.length, body: response.body, recipient: response.recipient.username}"></app-comment>
+      <app-comment *ngFor="let response of comment.responses;" [comment]="{
+        username: response.sender.username,  
+        likes: response.likes.length, 
+        body: response.body, 
+        recipient: response.recipient.username, 
+        yourComment: response.sender.username === authenticatedUser.username}"></app-comment>
     </div>
     }
   </div>
