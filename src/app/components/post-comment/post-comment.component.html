@@ -4,7 +4,7 @@
       [(ngModel)]="comment.body"></textarea>
 
     <div class="post-comment__interaction">
-      <img class="post-comment__interaction__pic" src="/avatars/image-amyrobson.webp" alt="">
+      <img class="post-comment__interaction__pic" src={{getProfilePicPath()}} alt="">
       <app-button type="submit">Send</app-button>
     </div>
   </form>

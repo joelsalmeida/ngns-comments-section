@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 import { CommentsService } from '../../services/comment.service';
 import { ButtonComponent } from '../button/button.component';
 import { CardComponent } from '../card/card.component';
@@ -13,13 +14,26 @@ import { CardComponent } from '../card/card.component';
   styleUrl: './post-comment.component.sass'
 })
 export class PostCommentComponent {
-  constructor(private commentsService: CommentsService) { }
+  constructor(private commentsService: CommentsService, private authService: AuthService) { }
 
-  comment = { body: '', sender: 'baea2164-700d-42d4-bc57-08f3b2a19c03' }
+  comment = { body: '', sender: this.authService.authenticatedUser.id as string }
+
 
   postComment() {
-    this.commentsService.postComment(this.comment).subscribe(response => {
-      console.log('postComment response: ', response)
-    })
+    const isAuthenticated = this.authService.isAuthenticated;
+
+    if (isAuthenticated) {
+      this.commentsService.postComment(this.comment).subscribe(response => {
+        console.log('postComment response: ', response)
+      })
+
+      this.comment.body = '';
+    }
+  }
+
+  // TODO: Make this method reusable
+  getProfilePicPath() {
+    const username = this.authService.authenticatedUser.username as string;
+    return `/avatars/image-${username}.webp`
   }
 }
