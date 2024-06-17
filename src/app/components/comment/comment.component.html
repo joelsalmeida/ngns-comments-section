@@ -12,8 +12,17 @@
 
   <div class="comment__interaction">
     <app-like-button [likes]="comment.likes"></app-like-button>
-    <span class="comment__interaction__reply">
-      <img src="/icon-reply.svg" alt="">
-      Reply</span>
+
+    <div class="comment__interaction__container">
+      <span *ngIf="comment.yourComment" class="comment__interaction__delete">
+        <img src="/icon-delete.svg" alt="">
+        <span>Delete</span>
+      </span>
+
+      <span class="comment__interaction__reply">
+        <img src="/icon-reply.svg" alt="">
+        <span>Reply</span>
+      </span>
+    </div>
   </div>
 </app-card>

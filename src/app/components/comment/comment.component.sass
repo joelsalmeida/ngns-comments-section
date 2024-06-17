@@ -21,10 +21,23 @@
     justify-content: space-between
     align-items: center
 
-    &__reply
-      color: $moderate-blue
+    &__container
+      display: flex
+      gap: 1em
+
+    &__reply, &__delete
       cursor: pointer
       font-weight: $weight-semibold
       display: flex
       align-items: center
       gap: 0.5em
+
+      img
+        max-width: 1em
+        max-height: 0.8em
+
+    &__reply
+      color: $moderate-blue
+
+    &__delete
+      color: $soft-red
