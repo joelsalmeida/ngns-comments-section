@@ -1,28 +1,33 @@
-<app-card>
-  <div class="comment__profile">
-    <app-mini-profile [profilePic]=getProfilePicPath() [username]="comment.username"
-      [yourComment]="comment.yourComment"></app-mini-profile>
-    <span class="comment__past-time">10 minutes ago</span>
-  </div>
-
-  <p class="comment__content">
-    <span *ngIf="comment.recipient" class="comment__content__username">{{"@" + comment.recipient}}</span>
-    {{ comment.body }}
-  </p>
-
-  <div class="comment__interaction">
-    <app-like-button [likes]="comment.likes"></app-like-button>
-
-    <div class="comment__interaction__container">
-      <span *ngIf="comment.yourComment" class="comment__interaction__delete">
-        <img src="/icon-delete.svg" alt="">
-        <span>Delete</span>
-      </span>
-
-      <span class="comment__interaction__reply">
-        <img src="/icon-reply.svg" alt="">
-        <span>Reply</span>
-      </span>
+<div class="comment-container">
+  <app-card>
+    <div class="comment__profile">
+      <app-mini-profile [profilePic]=getProfilePicPath() [username]="comment.username"
+        [yourComment]="comment.yourComment"></app-mini-profile>
+      <span class="comment__past-time">10 minutes ago</span>
     </div>
-  </div>
-</app-card>
+
+    <p class="comment__content">
+      <span *ngIf="comment.recipient" class="comment__content__username">{{"@" + comment.recipient}}</span>
+      {{ comment.body }}
+    </p>
+
+    <div class="comment__interaction">
+      <app-like-button [likes]="comment.likes"></app-like-button>
+
+      <div class="comment__interaction__container">
+        <span *ngIf="comment.yourComment" class="comment__interaction__delete">
+          <img src="/icon-delete.svg" alt="">
+          <span>Delete</span>
+        </span>
+
+        <span class="comment__interaction__reply" (click)="toggleReply()">
+          <img src="/icon-reply.svg" alt="">
+          <span>Reply</span>
+        </span>
+      </div>
+    </div>
+  </app-card>
+
+  <app-post-comment *ngIf="reply" [isReply]="true" [commentId]="comment.id"
+    [recipient]="comment.userId"></app-post-comment>
+</div>
