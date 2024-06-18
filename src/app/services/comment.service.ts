@@ -38,6 +38,11 @@ type TPostComment = {
   sender: string,
 }
 
+type TPostResponse = {
+  comment: string,
+  recipient: string,
+} & TPostComment
+
 type TPostCommentResponse = {
   success: boolean,
   message: string,
@@ -72,6 +77,12 @@ export class CommentsService {
     );
 
     return postCommentResponse;
+  }
+
+  replyComment(response: TPostResponse): Observable<TPostCommentResponse> {
+    return this.http.post<TPostCommentResponse>(`${environment.nsGnServer}/response`, response).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
   }
 }
 
