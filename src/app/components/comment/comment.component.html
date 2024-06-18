@@ -15,7 +15,7 @@
       <app-like-button [likes]="comment.likes"></app-like-button>
 
       <div class="comment__interaction__container">
-        <span *ngIf="comment.yourComment" class="comment__interaction__delete">
+        <span *ngIf="comment.yourComment" class="comment__interaction__delete" (click)="deleteComment()">
           <img src="/icon-delete.svg" alt="">
           <span>Delete</span>
         </span>

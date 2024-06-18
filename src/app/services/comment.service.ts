@@ -84,5 +84,17 @@ export class CommentsService {
       tap(() => this.getCommentsTimeline())
     );
   }
+
+  deleteComment(id: string): Observable<TPostCommentResponse> {
+    return this.http.delete<TPostCommentResponse>(`${environment.nsGnServer}/comment/${id}`).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
+  }
+
+  deleteResponse(id: string): Observable<TPostCommentResponse> {
+    return this.http.delete<TPostCommentResponse>(`${environment.nsGnServer}/response/${id}`).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
+  }
 }
 
