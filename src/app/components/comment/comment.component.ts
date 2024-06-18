@@ -11,9 +11,11 @@ type TComment = {
   userId: string,
   username: string,
   recipient?: string,
-  likes: number
-  body?: string
-  yourComment: boolean
+  likes: number,
+  liked: boolean,
+  body: string
+  yourComment: boolean,
+  authUserId?: string
 }
 
 @Component({
@@ -24,10 +26,12 @@ type TComment = {
   styleUrl: './comment.component.sass'
 })
 export class CommentComponent {
-  constructor(private commentService: CommentsService) { }
+  constructor(private commentService: CommentsService) {
+    this.likeComment = this.likeComment.bind(this);
+  }
 
   @Input() comment: TComment = {
-    id: '', userId: '', username: 'nice-username', likes: 0, body: 'nice comment body', yourComment: false
+    id: '', userId: '', username: 'nice-username', likes: 0, liked: false, body: 'nice comment body', yourComment: false
   }
 
   reply: boolean = false;
@@ -45,5 +49,18 @@ export class CommentComponent {
     const hasRecipientId = this.comment.recipient;
     return hasRecipientId ?
       this.commentService.deleteResponse(this.comment.id).subscribe() : this.commentService.deleteComment(this.comment.id).subscribe();
+  }
+
+  likeComment() {
+    const authUserId = this.comment.authUserId;
+
+    if (authUserId) {
+      const like = {
+        sender: authUserId,
+        comment: this.comment.id
+      }
+
+      this.commentService.likeComment(like).subscribe();
+    }
   }
 }

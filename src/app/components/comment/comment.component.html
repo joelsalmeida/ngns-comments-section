@@ -12,7 +12,7 @@
     </p>
 
     <div class="comment__interaction">
-      <app-like-button [likes]="comment.likes"></app-like-button>
+      <app-like-button [likes]="comment.likes" [liked]="comment.liked" [onClick]="likeComment"></app-like-button>
 
       <div class="comment__interaction__container">
         <span *ngIf="comment.yourComment" class="comment__interaction__delete" (click)="deleteComment()">

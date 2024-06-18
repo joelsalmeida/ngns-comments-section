@@ -5,8 +5,11 @@
       userId: comment.sender.id,
       username: comment.sender.username, 
       likes: comment.likes.length, 
+      liked: authenticatedUser.id? comment.likes.includes(authenticatedUser.id) : false,
       body: comment.body,
-      yourComment: comment.sender.username === authenticatedUser.username}"></app-comment>
+      yourComment: comment.sender.username === authenticatedUser.username,
+      authUserId: authenticatedUser.id || undefined,
+      }"></app-comment>
 
     @if (comment.responses.length > 0) {
     <div class="comments-section__replies">
@@ -14,10 +17,13 @@
         id: response.id,
         userId: response.sender.id,
         username: response.sender.username,  
-        likes: response.likes.length, 
+        likes: response.likes.length,
+        liked: authenticatedUser.id? response.likes.includes(authenticatedUser.id) : false,
         body: response.body, 
         recipient: response.recipient.username, 
-        yourComment: response.sender.username === authenticatedUser.username}"></app-comment>
+        yourComment: response.sender.username === authenticatedUser.username,
+        authUserId: authenticatedUser.id || undefined,
+        }"></app-comment>
     </div>
     }
   </div>
