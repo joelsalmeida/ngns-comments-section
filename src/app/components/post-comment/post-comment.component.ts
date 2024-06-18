@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommentsService } from '../../services/comment.service';
@@ -18,6 +18,9 @@ export class PostCommentComponent {
 
   comment = { body: '', sender: this.authService.authenticatedUser.id as string }
 
+  @Input() commentId: string = '';
+  @Input() recipient: string = '';
+  @Input() isReply: boolean = false;
 
   postComment() {
     const isAuthenticated = this.authService.isAuthenticated;
@@ -25,6 +28,24 @@ export class PostCommentComponent {
     if (isAuthenticated) {
       this.commentsService.postComment(this.comment).subscribe(response => {
         console.log('postComment response: ', response)
+      })
+
+      this.comment.body = '';
+    }
+  }
+
+  replyComment() {
+    const isAuthenticated = this.authService.isAuthenticated;
+
+    const replyBody = {
+      ...this.comment,
+      comment: this.commentId,
+      recipient: this.recipient,
+    }
+
+    if (isAuthenticated) {
+      this.commentsService.replyComment(replyBody).subscribe(response => {
+        console.log('replyComment response: ', response)
       })
 
       this.comment.body = '';
