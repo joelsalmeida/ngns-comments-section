@@ -9,13 +9,17 @@
   padding: 0.5em
   background-color: $very-light-gray
   color: $moderate-blue
+  cursor: pointer
 
   &__up, &__down
     display: flex
     background: none
     border: none
-    cursor: pointer
     padding: 4px
+    cursor: pointer
+
+    &--disabled
+      opacity: 0.25
 
   &__counter
     color: $grayish-blue

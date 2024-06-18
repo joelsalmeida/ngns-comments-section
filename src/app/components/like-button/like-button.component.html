@@ -1,9 +1,11 @@
-<div class="like-button">
-  <button class="like-button__up">
+<div class="like-button" (click)="onClick()">
+  <button [ngClass]="liked ? 'like-button__up like-button__up--disabled' : 'like-button__up'">
     <img src="icon-plus.svg" alt="">
   </button>
+
   <span class="like-button__counter">{{likes}}</span>
-  <button class="like-button__down">
+
+  <button [ngClass]="!liked ? 'like-button__down like-button__down--disabled' : 'like-button__down'">
     <img src="icon-minus.svg" alt="">
   </button>
 </div>
