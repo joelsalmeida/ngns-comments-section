@@ -48,6 +48,11 @@ type TPostCommentResponse = {
   message: string,
 }
 
+type TLikeComment = {
+  sender: string,
+  comment: string,
+}
+
 @Injectable({ providedIn: 'root' })
 export class CommentsService {
   private _commentsBehaviorSubject = new BehaviorSubject<TComment[]>([]);
@@ -77,6 +82,14 @@ export class CommentsService {
     );
 
     return postCommentResponse;
+  }
+
+  likeComment(like: TLikeComment): Observable<TPostCommentResponse> {
+    const likeCommentResponse = this.http.post<TPostCommentResponse>(`${environment.nsGnServer}/comment/like`, like).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
+
+    return likeCommentResponse;
   }
 
   replyComment(response: TPostResponse): Observable<TPostCommentResponse> {
