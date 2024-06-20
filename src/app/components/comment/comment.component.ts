@@ -1,7 +1,9 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CommentsService } from '../../services/comment.service';
 import { CardComponent } from '../card/card.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { LikeButtonComponent } from '../like-button/like-button.component';
 import { MiniProfileComponent } from '../mini-profile/mini-profile.component';
 import { PostCommentComponent } from '../post-comment/post-comment.component';
@@ -21,13 +23,18 @@ type TComment = {
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CardComponent, MiniProfileComponent, LikeButtonComponent, PostCommentComponent, NgIf],
+  imports: [CardComponent, MiniProfileComponent, LikeButtonComponent, PostCommentComponent, NgIf, DialogComponent],
   templateUrl: './comment.component.html',
-  styleUrl: './comment.component.sass'
+  styleUrl: './comment.component.sass',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class CommentComponent {
-  constructor(private commentService: CommentsService) {
+  readonly dialog = inject(MatDialog)
+
+  constructor(private commentService: CommentsService,) {
     this.likeComment = this.likeComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
   @Input() comment: TComment = {
@@ -44,7 +51,10 @@ export class CommentComponent {
     this.reply = !this.reply;
   }
 
-  // TODO: Add confirmation dialog before deleting comment
+  openDeleteDialogConfirmation() {
+    this.dialog.open(DialogComponent, { data: { onClick: this.deleteComment }, panelClass: 'my-dialog' });
+  }
+
   deleteComment() {
     const hasRecipientId = this.comment.recipient;
     return hasRecipientId ?
