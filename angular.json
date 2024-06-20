@@ -32,6 +32,7 @@
               }
             ],
             "styles": [
+              "src/app/styles/themes/custom-theme.scss",
               "src/app/styles/styles.sass"
             ],
             "scripts": []
