@@ -3,7 +3,10 @@
     <div class="comment__profile">
       <app-mini-profile [profilePic]=getProfilePicPath() [username]="comment.username"
         [yourComment]="comment.yourComment"></app-mini-profile>
-      <span class="comment__past-time">10 minutes ago</span>
+
+      <span class="comment__past-time">
+        {{comment.createdAt | timeAgo}}
+      </span>
     </div>
 
     <p class="comment__content">

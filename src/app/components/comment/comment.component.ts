@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 import { CommentsService } from '../../services/comment.service';
 import { CardComponent } from '../card/card.component';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -16,6 +17,7 @@ type TComment = {
   likes: number,
   liked: boolean,
   body: string
+  createdAt: string,
   yourComment: boolean,
   authUserId?: string
 }
@@ -23,7 +25,7 @@ type TComment = {
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CardComponent, MiniProfileComponent, LikeButtonComponent, PostCommentComponent, NgIf, DialogComponent],
+  imports: [CardComponent, MiniProfileComponent, LikeButtonComponent, PostCommentComponent, NgIf, DialogComponent, TimeAgoPipe],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,7 +40,7 @@ export class CommentComponent {
   }
 
   @Input() comment: TComment = {
-    id: '', userId: '', username: 'nice-username', likes: 0, liked: false, body: 'nice comment body', yourComment: false
+    id: '', userId: '', username: 'nice-username', likes: 0, liked: false, body: 'nice comment body', createdAt: '', yourComment: false
   }
 
   reply: boolean = false;

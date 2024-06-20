@@ -7,6 +7,7 @@
       likes: comment.likes.length, 
       liked: authenticatedUser.id? comment.likes.includes(authenticatedUser.id) : false,
       body: comment.body,
+      createdAt: comment.createdAt,
       yourComment: comment.sender.username === authenticatedUser.username,
       authUserId: authenticatedUser.id || undefined,
       }"></app-comment>
@@ -19,7 +20,8 @@
         username: response.sender.username,  
         likes: response.likes.length,
         liked: authenticatedUser.id? response.likes.includes(authenticatedUser.id) : false,
-        body: response.body, 
+        body: response.body,
+        createdAt: response.createdAt,
         recipient: response.recipient.username, 
         yourComment: response.sender.username === authenticatedUser.username,
         authUserId: authenticatedUser.id || undefined,
