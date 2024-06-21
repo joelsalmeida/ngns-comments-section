@@ -1,8 +1,10 @@
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 import { CommentsService } from '../../services/comment.service';
+import { ButtonComponent } from '../button/button.component';
 import { CardComponent } from '../card/card.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { LikeButtonComponent } from '../like-button/like-button.component';
@@ -25,7 +27,7 @@ type TComment = {
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CardComponent, MiniProfileComponent, LikeButtonComponent, PostCommentComponent, NgIf, DialogComponent, TimeAgoPipe],
+  imports: [CardComponent, MiniProfileComponent, ButtonComponent, LikeButtonComponent, PostCommentComponent, NgIf, NgClass, DialogComponent, TimeAgoPipe, FormsModule],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -44,6 +46,7 @@ export class CommentComponent {
   }
 
   reply: boolean = false;
+  update: boolean = false;
 
   getProfilePicPath() {
     return `/avatars/image-${this.comment.username}.webp`
@@ -51,6 +54,10 @@ export class CommentComponent {
 
   toggleReply() {
     this.reply = !this.reply;
+  }
+
+  toggleUpdate() {
+    this.update = !this.update;
   }
 
   openDeleteDialogConfirmation() {
@@ -67,12 +74,33 @@ export class CommentComponent {
     const authUserId = this.comment.authUserId;
 
     if (authUserId) {
-      const like = {
+      const likeComment = {
         sender: authUserId,
         comment: this.comment.id
       }
 
-      this.commentService.likeComment(like).subscribe();
+      const likeResponse = {
+        sender: authUserId,
+        response: this.comment.id
+      }
+
+      const hasRecipientId = this.comment.recipient;
+      hasRecipientId ? this.commentService.likeResponse(likeResponse).subscribe() : this.commentService.likeComment(likeComment).subscribe();
+    }
+  }
+
+  // TODO: Check if the user is the owner of the comment
+  updateComment() {
+    const authUserId = this.comment.authUserId;
+    const commentId = this.comment.id;
+
+    if (authUserId) {
+      const commentUpdate = {
+        body: this.comment.body,
+      }
+
+      const hasRecipientId = this.comment.recipient;
+      hasRecipientId ? this.commentService.updateResponse(commentId, commentUpdate).subscribe() : this.commentService.updateComment(commentId, commentUpdate).subscribe();
     }
   }
 }

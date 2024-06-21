@@ -9,24 +9,44 @@
       </span>
     </div>
 
-    <p class="comment__content">
-      <span *ngIf="comment.recipient" class="comment__content__username">{{"@" + comment.recipient}}</span>
-      {{ comment.body }}
-    </p>
+    <ng-template #contentTemplate>
+      <p class="comment__content">
+        <span *ngIf="comment.recipient" class="comment__content__username">{{"@" + comment.recipient}}</span>
+        {{ comment.body }}
+      </p>
+    </ng-template>
+
+    <form *ngIf="comment.yourComment && update; else contentTemplate" class="comment__update"
+      (ngSubmit)="updateComment()">
+      <textarea class="post-comment__body" name="body" id="body" required placeholder="Add a comment..."
+        [(ngModel)]="comment.body"></textarea>
+
+      <app-button type="submit">Update</app-button>
+    </form>
 
     <div class="comment__interaction">
       <app-like-button [likes]="comment.likes" [liked]="comment.liked" [onClick]="likeComment"></app-like-button>
 
       <div class="comment__interaction__container">
-        <span *ngIf="comment.yourComment" class="comment__interaction__delete" (click)="openDeleteDialogConfirmation()">
+        <button *ngIf="comment.yourComment"
+          [ngClass]="update ? 'comment__interaction__delete comment__interaction__delete--disabled' : 'comment__interaction__delete'"
+          (click)="openDeleteDialogConfirmation()" [disabled]="update">
           <img src="/icon-delete.svg" alt="">
           <span>Delete</span>
-        </span>
+        </button>
 
-        <span class="comment__interaction__reply" (click)="toggleReply()">
-          <img src="/icon-reply.svg" alt="">
-          <span>Reply</span>
-        </span>
+        <ng-template #replyTemplate>
+          <button class="comment__interaction__reply" (click)="toggleReply()">
+            <img src="/icon-reply.svg" alt="">
+            <span>Reply</span>
+          </button>
+        </ng-template>
+
+        <button *ngIf="comment.yourComment; else replyTemplate" class="comment__interaction__reply"
+          (click)="toggleUpdate()">
+          <img src="/icon-edit.svg" alt="">
+          <span>{{update? "Cancel": "Edit" }}</span>
+        </button>
       </div>
     </div>
   </app-card>

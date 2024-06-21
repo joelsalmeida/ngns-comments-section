@@ -21,21 +21,46 @@
       font-weight: $weight-semibold
       color: $moderate-blue
 
+  &__update
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+    gap: 0.5em
+    padding: 1em 0
+
+    textarea
+      border: 1px solid $light-gray
+      height: 6em
+      width: 100%
+      border-radius: 8px
+      padding: 0.5em
+      color: $grayish-blue
+
   &__interaction
     display: flex
     justify-content: space-between
     align-items: center
+
+    button
+      border: none
+      background-color: transparent
 
     &__container
       display: flex
       gap: 1em
 
     &__reply, &__delete
-      cursor: pointer
       font-weight: $weight-semibold
       display: flex
       align-items: center
       gap: 0.5em
+
+      &:not(:disabled):hover
+        cursor: pointer
+
+    &__delete--disabled
+      opacity: 0.25
+      cursor: not-allowed
 
       img
         max-width: 1em

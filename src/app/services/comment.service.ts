@@ -38,6 +38,10 @@ type TPostComment = {
   sender: string,
 }
 
+type TPatchComment = {
+  body: string,
+}
+
 type TPostResponse = {
   comment: string,
   recipient: string,
@@ -51,6 +55,11 @@ type TPostCommentResponse = {
 type TLikeComment = {
   sender: string,
   comment: string,
+}
+
+type TLikeResponse = {
+  sender: string,
+  response: string,
 }
 
 @Injectable({ providedIn: 'root' })
@@ -84,12 +93,32 @@ export class CommentsService {
     return postCommentResponse;
   }
 
+  updateComment(id: string, body: TPatchComment): Observable<TContent> {
+    return this.http.patch<TContent>(`${environment.nsGnServer}/comment/${id}`, body).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
+  }
+
+  updateResponse(id: string, body: TPatchComment): Observable<TContent> {
+    return this.http.patch<TContent>(`${environment.nsGnServer}/response/${id}`, body).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
+  }
+
   likeComment(like: TLikeComment): Observable<TPostCommentResponse> {
     const likeCommentResponse = this.http.post<TPostCommentResponse>(`${environment.nsGnServer}/comment/like`, like).pipe(
       tap(() => this.getCommentsTimeline())
     );
 
     return likeCommentResponse;
+  }
+
+  likeResponse(like: TLikeResponse): Observable<TPostCommentResponse> {
+    const likeResponseResponse = this.http.post<TPostCommentResponse>(`${environment.nsGnServer}/response/like`, like).pipe(
+      tap(() => this.getCommentsTimeline())
+    );
+
+    return likeResponseResponse;
   }
 
   replyComment(response: TPostResponse): Observable<TPostCommentResponse> {
