@@ -1,6 +1,7 @@
 <section class="comments-section">
-  <div *ngFor="let comment of comments$| async;">
-    <app-comment [comment]="{
+  <section class="comments-section__container">
+    <div *ngFor="let comment of comments$| async;">
+      <app-comment [comment]="{
       id: comment.id,
       userId: comment.sender.id,
       username: comment.sender.username, 
@@ -12,9 +13,9 @@
       authUserId: authenticatedUser.id || undefined,
       }"></app-comment>
 
-    @if (comment.responses.length > 0) {
-    <div class="comments-section__replies">
-      <app-comment *ngFor="let response of comment.responses;" [comment]="{
+      @if (comment.responses.length > 0) {
+      <div class="comments-section__replies">
+        <app-comment *ngFor="let response of comment.responses;" [comment]="{
         id: response.id,
         userId: response.sender.id,
         username: response.sender.username,  
@@ -26,9 +27,10 @@
         yourComment: response.sender.username === authenticatedUser.username,
         authUserId: authenticatedUser.id || undefined,
         }"></app-comment>
+      </div>
+      }
     </div>
-    }
-  </div>
+  </section>
 
   <app-post-comment></app-post-comment>
 </section>
