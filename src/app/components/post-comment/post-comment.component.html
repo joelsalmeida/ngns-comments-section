@@ -1,11 +1,24 @@
 <app-card>
-  <form class="post-comment" (ngSubmit)="isReply?replyComment() : postComment()">
-    <textarea class="post-comment__body" name="body" id="body" required placeholder="Add a comment..."
-      [(ngModel)]="comment.body"></textarea>
+  <form
+    class="post-comment"
+    (ngSubmit)="isReply ? replyComment() : postComment()"
+  >
+    <textarea
+      class="post-comment__body"
+      name="body"
+      id="body"
+      required
+      placeholder="Add a comment..."
+      [(ngModel)]="comment.body"
+    ></textarea>
 
     <div class="post-comment__interaction">
-      <img class="post-comment__interaction__pic" src={{getProfilePicPath()}} alt="">
-      <app-button type="submit">{{isReply? 'Reply' : 'Send'}} </app-button>
+      <img
+        class="post-comment__interaction__pic"
+        src="{{ getProfilePicPath() }}"
+        alt=""
+      />
+      <app-button type="submit">{{ isReply ? "Reply" : "Send" }} </app-button>
     </div>
   </form>
 </app-card>

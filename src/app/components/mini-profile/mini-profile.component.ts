@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [NgIf],
   templateUrl: './mini-profile.component.html',
-  styleUrl: './mini-profile.component.sass'
+  styleUrl: './mini-profile.component.sass',
 })
 export class MiniProfileComponent {
-  @Input() profilePic: string = '';
-  @Input() username: string = '';
-  @Input() yourComment: boolean = false;
+  @Input() profilePic = '';
+  @Input() username = '';
+  @Input() yourComment = false;
 }

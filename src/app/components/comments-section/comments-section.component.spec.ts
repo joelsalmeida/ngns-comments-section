@@ -8,9 +8,8 @@ describe('CommentsSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommentsSectionComponent]
-    })
-    .compileComponents();
+      imports: [CommentsSectionComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CommentsSectionComponent);
     component = fixture.componentInstance;

@@ -1,33 +1,43 @@
 <section class="comments-section">
   <section class="comments-section__container">
-    <div *ngFor="let comment of comments$| async;">
-      <app-comment [comment]="{
-      id: comment.id,
-      userId: comment.sender.id,
-      username: comment.sender.username, 
-      likes: comment.likes.length, 
-      liked: authenticatedUser.id? comment.likes.includes(authenticatedUser.id) : false,
-      body: comment.body,
-      createdAt: comment.createdAt,
-      yourComment: comment.sender.username === authenticatedUser.username,
-      authUserId: authenticatedUser.id || undefined,
-      }"></app-comment>
+    <div *ngFor="let comment of comments$ | async">
+      <app-comment
+        [comment]="{
+          id: comment.id,
+          userId: comment.sender.id,
+          username: comment.sender.username,
+          likes: comment.likes.length,
+          liked: authenticatedUser.id
+            ? comment.likes.includes(authenticatedUser.id)
+            : false,
+          body: comment.body,
+          createdAt: comment.createdAt,
+          yourComment: comment.sender.username === authenticatedUser.username,
+          authUserId: authenticatedUser.id || undefined,
+        }"
+      ></app-comment>
 
       @if (comment.responses.length > 0) {
-      <div class="comments-section__replies">
-        <app-comment *ngFor="let response of comment.responses;" [comment]="{
-        id: response.id,
-        userId: response.sender.id,
-        username: response.sender.username,  
-        likes: response.likes.length,
-        liked: authenticatedUser.id? response.likes.includes(authenticatedUser.id) : false,
-        body: response.body,
-        createdAt: response.createdAt,
-        recipient: response.recipient.username, 
-        yourComment: response.sender.username === authenticatedUser.username,
-        authUserId: authenticatedUser.id || undefined,
-        }"></app-comment>
-      </div>
+        <div class="comments-section__replies">
+          <app-comment
+            *ngFor="let response of comment.responses"
+            [comment]="{
+              id: response.id,
+              userId: response.sender.id,
+              username: response.sender.username,
+              likes: response.likes.length,
+              liked: authenticatedUser.id
+                ? response.likes.includes(authenticatedUser.id)
+                : false,
+              body: response.body,
+              createdAt: response.createdAt,
+              recipient: response.recipient.username,
+              yourComment:
+                response.sender.username === authenticatedUser.username,
+              authUserId: authenticatedUser.id || undefined,
+            }"
+          ></app-comment>
+        </div>
       }
     </div>
   </section>

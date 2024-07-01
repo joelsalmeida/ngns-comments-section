@@ -1,5 +1,10 @@
 import { NgClass, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  inject,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
@@ -11,45 +16,62 @@ import { LikeButtonComponent } from '../like-button/like-button.component';
 import { MiniProfileComponent } from '../mini-profile/mini-profile.component';
 import { PostCommentComponent } from '../post-comment/post-comment.component';
 
-type TComment = {
-  id: string,
-  userId: string,
-  username: string,
-  recipient?: string,
-  likes: number,
-  liked: boolean,
-  body: string
-  createdAt: string,
-  yourComment: boolean,
-  authUserId?: string
+interface TComment {
+  id: string;
+  userId: string;
+  username: string;
+  recipient?: string;
+  likes: number;
+  liked: boolean;
+  body: string;
+  createdAt: string;
+  yourComment: boolean;
+  authUserId?: string;
 }
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CardComponent, MiniProfileComponent, ButtonComponent, LikeButtonComponent, PostCommentComponent, NgIf, NgClass, DialogComponent, TimeAgoPipe, FormsModule],
+  imports: [
+    CardComponent,
+    MiniProfileComponent,
+    ButtonComponent,
+    LikeButtonComponent,
+    PostCommentComponent,
+    NgIf,
+    NgClass,
+    DialogComponent,
+    TimeAgoPipe,
+    FormsModule,
+  ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.sass',
-  changeDetection: ChangeDetectionStrategy.OnPush
-
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent {
-  readonly dialog = inject(MatDialog)
+  readonly dialog = inject(MatDialog);
 
-  constructor(private commentService: CommentsService,) {
+  constructor(private commentService: CommentsService) {
     this.likeComment = this.likeComment.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
   }
 
   @Input() comment: TComment = {
-    id: '', userId: '', username: 'nice-username', likes: 0, liked: false, body: 'nice comment body', createdAt: '', yourComment: false
-  }
+    id: '',
+    userId: '',
+    username: 'nice-username',
+    likes: 0,
+    liked: false,
+    body: 'nice comment body',
+    createdAt: '',
+    yourComment: false,
+  };
 
-  reply: boolean = false;
-  update: boolean = false;
+  reply = false;
+  update = false;
 
   getProfilePicPath() {
-    return `/avatars/image-${this.comment.username}.webp`
+    return `/avatars/image-${this.comment.username}.webp`;
   }
 
   toggleReply() {
@@ -61,13 +83,17 @@ export class CommentComponent {
   }
 
   openDeleteDialogConfirmation() {
-    this.dialog.open(DialogComponent, { data: { onClick: this.deleteComment }, panelClass: 'my-dialog' });
+    this.dialog.open(DialogComponent, {
+      data: { onClick: this.deleteComment },
+      panelClass: 'my-dialog',
+    });
   }
 
   deleteComment() {
     const hasRecipientId = this.comment.recipient;
-    return hasRecipientId ?
-      this.commentService.deleteResponse(this.comment.id).subscribe() : this.commentService.deleteComment(this.comment.id).subscribe();
+    return hasRecipientId
+      ? this.commentService.deleteResponse(this.comment.id).subscribe()
+      : this.commentService.deleteComment(this.comment.id).subscribe();
   }
 
   likeComment() {
@@ -76,16 +102,20 @@ export class CommentComponent {
     if (authUserId) {
       const likeComment = {
         sender: authUserId,
-        comment: this.comment.id
-      }
+        comment: this.comment.id,
+      };
 
       const likeResponse = {
         sender: authUserId,
-        response: this.comment.id
-      }
+        response: this.comment.id,
+      };
 
       const hasRecipientId = this.comment.recipient;
-      hasRecipientId ? this.commentService.likeResponse(likeResponse).subscribe() : this.commentService.likeComment(likeComment).subscribe();
+      if (hasRecipientId) {
+        this.commentService.likeResponse(likeResponse).subscribe();
+      } else {
+        this.commentService.likeComment(likeComment).subscribe();
+      }
     }
   }
 
@@ -97,10 +127,16 @@ export class CommentComponent {
     if (authUserId) {
       const commentUpdate = {
         body: this.comment.body,
-      }
+      };
 
       const hasRecipientId = this.comment.recipient;
-      hasRecipientId ? this.commentService.updateResponse(commentId, commentUpdate).subscribe() : this.commentService.updateComment(commentId, commentUpdate).subscribe();
+      if (hasRecipientId) {
+        this.commentService
+          .updateResponse(commentId, commentUpdate)
+          .subscribe();
+      } else {
+        this.commentService.updateComment(commentId, commentUpdate).subscribe();
+      }
     }
   }
 }

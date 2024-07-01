@@ -8,9 +8,8 @@ type TButtonColor = 'primary' | 'secondary' | 'danger';
   standalone: true,
   imports: [NgClass],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.sass'
+  styleUrl: './button.component.sass',
 })
-
 export class ButtonComponent {
   @Input() color: TButtonColor = 'primary';
 }

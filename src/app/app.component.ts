@@ -7,7 +7,7 @@ import { CommentsSectionComponent } from './components/comments-section/comments
   standalone: true,
   imports: [RouterOutlet, CommentsSectionComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.sass'
+  styleUrl: './app.component.sass',
 })
 export class AppComponent {
   title = 'ngns-comments-section';
