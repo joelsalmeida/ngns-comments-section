@@ -8,9 +8,8 @@ describe('LikeButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LikeButtonComponent]
-    })
-    .compileComponents();
+      imports: [LikeButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LikeButtonComponent);
     component = fixture.componentInstance;

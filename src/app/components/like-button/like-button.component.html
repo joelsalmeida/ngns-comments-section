@@ -1,12 +1,28 @@
-<div class="like-button" (click)="onClick()">
-  <button [ngClass]="liked ? 'like-button__up like-button__up--disabled' : 'like-button__up'" [disabled]="liked">
-    <img src="icon-plus.svg" alt="">
+<div
+  class="like-button"
+  (click)="onClick()"
+  (keyup)="onKeyUp($event)"
+  tabindex="0"
+>
+  <button
+    [ngClass]="
+      liked ? 'like-button__up like-button__up--disabled' : 'like-button__up'
+    "
+    [disabled]="liked"
+  >
+    <img src="icon-plus.svg" alt="" />
   </button>
 
-  <span class="like-button__counter">{{likes}}</span>
+  <span class="like-button__counter">{{ likes }}</span>
 
-  <button [ngClass]="!liked ? 'like-button__down like-button__down--disabled' : 'like-button__down'"
-    [disabled]="!liked">
-    <img src="icon-minus.svg" alt="">
+  <button
+    [ngClass]="
+      !liked
+        ? 'like-button__down like-button__down--disabled'
+        : 'like-button__down'
+    "
+    [disabled]="!liked"
+  >
+    <img src="icon-minus.svg" alt="" />
   </button>
 </div>

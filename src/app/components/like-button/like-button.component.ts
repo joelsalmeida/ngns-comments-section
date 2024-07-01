@@ -6,10 +6,19 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [NgClass],
   templateUrl: './like-button.component.html',
-  styleUrl: './like-button.component.sass'
+  styleUrl: './like-button.component.sass',
 })
 export class LikeButtonComponent {
-  @Input() likes: number = 0;
-  @Input() liked: boolean = false;
-  @Input() onClick: () => void = () => { };
+  @Input() likes = 0;
+  @Input() liked = false;
+  @Input() onClick: () => void = () => {
+    console.log('clicked');
+  };
+
+  onKeyUp(event: KeyboardEvent) {
+    if (event.code === 'Space' || event.code === 'Enter') {
+      event.preventDefault();
+      this.onClick();
+    }
+  }
 }
