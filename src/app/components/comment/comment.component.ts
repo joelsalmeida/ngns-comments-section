@@ -18,6 +18,7 @@ import { PostCommentComponent } from '../post-comment/post-comment.component';
 
 interface TComment {
   id: string;
+  toId?: string;
   userId: string;
   username: string;
   recipient?: string;
