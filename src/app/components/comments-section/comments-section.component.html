@@ -23,6 +23,7 @@
             *ngFor="let response of comment.responses"
             [comment]="{
               id: response.id,
+              toId: comment.id,
               userId: response.sender.id,
               username: response.sender.username,
               likes: response.likes.length,
