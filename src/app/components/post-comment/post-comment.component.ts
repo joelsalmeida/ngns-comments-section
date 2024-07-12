@@ -24,6 +24,7 @@ export class PostCommentComponent {
   };
 
   @Input() commentId = '';
+  @Input() toId?: string;
   @Input() recipient = '';
   @Input() isReply = false;
 
@@ -44,7 +45,7 @@ export class PostCommentComponent {
 
     const replyBody = {
       ...this.comment,
-      comment: this.commentId,
+      comment: this.toId? this.toId : this.commentId,
       recipient: this.recipient,
     };
 
